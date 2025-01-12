@@ -6,29 +6,76 @@
     <title>PlaywrightJS Test Page</title>
     <script src="../src/playwright.js"></script>
     <script>
-        window.addEventListener('load', () => {
-            var elements = page.getByRole('heading', { name: 'Sign up' });
+        window.addEventListener('load', async () => {
+            var elements = await page.getByRole('heading', { name: 'Sign up' });
             if (elements.length === 0) {
                 console.error('Sign up not found');
             } else {
-                alert('Found: Sign up');
+                console.log('Found: Sign up');
             }
 
-            var elements = page.getByRole('button', { name: 'Submit' });
+            var elements = await page.getByRole('button', { name: 'Submit' });
             if (elements.length === 0) {
                 console.error('Submit not found');
             } else {
                 console.log('Found: Submit');
-                elements[0].click();
+                // elements[0].click();
             }
+
+            var elements = await page.getByText('subtitle', { exact: false });
+            if (elements.length === 0) {
+                console.error('subtitle not found');
+            } else {
+                console.log('subtitle Found: ', elements);
+            }
+
+            var elements = await page.getByLabel('Subscribe', { exact: false });
+            if (elements.length === 0) {
+                console.error('Subscribe not found');
+            } else {
+                console.log('Subscribe Found: ', elements);
+            }
+
+            var elements = await page.getByPlaceholder('Enter your name', { exact: true });
+            if (elements.length === 0) {
+                console.error('Input text not found');
+            } else {
+                console.log('Input text Found: ', elements);
+            }
+
+            var elements = await page.getByAltText('Duotify Logo', { exact: true });
+            if (elements.length === 0) {
+                console.error('Duotify Logo not found');
+            } else {
+                console.log('Duotify Logo Found: ', elements);
+            }
+
+            var elements = await page.getByTitle('多奇', { exact: true });
+            if (elements.length === 0) {
+                console.error('多奇 not found');
+            } else {
+                console.log('多奇 Found: ', elements);
+            }
+
+            var elements = await page.getByTestId('company-name', { exact: true });
+            if (elements.length === 0) {
+                console.error('company-name not found');
+            } else {
+                console.log('company-name Found: ', elements);
+            }
+
         });
     </script>
 </head>
 <body>
+    <a data-testid="company-name" href="https://www.duotify.com" title="多奇">多奇教育訓練</a>
+    <img src="https://gh-copilot-pro.gh.miniasp.com/images/logo.png" width="26" alt="Duotify Logo" />
+    <br>
     <h3>Sign up</h3>
-    <label>
-      <input type="checkbox" /> Subscribe
-    </label>
+    <div>This is a subtitle.</div>
+    <input type="text" placeholder="Enter your name" />
+    <input id="subscribe" type="checkbox" />
+    <label for="subscribe">Subscribe</label>
     <br/>
     <button onclick="alert('Submitted')">Submit</button>
 </body>
