@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaywrightJS Test Page</title>
+    <script src="../src/playwright.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            var elements = page.getByRole('heading', { name: 'Sign up' });
+            if (elements.length === 0) {
+                console.error('Sign up not found');
+            } else {
+                alert('Found: Sign up');
+            }
+
+            var elements = page.getByRole('button', { name: 'Submit' });
+            if (elements.length === 0) {
+                console.error('Submit not found');
+            } else {
+                console.log('Found: Submit');
+                elements[0].click();
+            }
+        });
+    </script>
+</head>
+<body>
+    <h3>Sign up</h3>
+    <label>
+      <input type="checkbox" /> Subscribe
+    </label>
+    <br/>
+    <button onclick="alert('Submitted')">Submit</button>
+</body>
+</html>
