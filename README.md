@@ -17,3 +17,9 @@
 ```html
 <script src="https://doggy8088.github.io/playwright-js/src/playwright.js"></script>
 ```
+
+## 相關連結
+
+- [Locators | Playwright](https://playwright.dev/docs/locators)
+- [ARIA in HTML](https://www.w3.org/TR/html-aria/#docconformance)
+- [ARIA and HTML  |  web.dev](https://web.dev/learn/accessibility/aria-html)

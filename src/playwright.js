@@ -380,7 +380,7 @@
 
                 if (filteredElements.length) return filteredElements;
                 if (Date.now() - start >= WAIT_TIMEOUT) return [];
-                await new Promise((r) => setTimeout(r, WAIT_INTERVAL));
+                await new Promise((r) => setTimeout(r, WAIT_INTgERVAL));
             }
         },
     };
