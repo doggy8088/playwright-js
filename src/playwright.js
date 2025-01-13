@@ -354,7 +354,11 @@
                     filteredElements = filteredElements.filter(element => {
                         const accessibleName = element.getAttribute('aria-label') || element.textContent.trim();
                         if (opts.exact) {
-                            return accessibleName === opts.name;
+                            return Array.isArray(opts.name)
+                                ? opts.name.some(name => accessibleName === name)
+                                : accessibleName === opts.name;
+                        } else if (Array.isArray(opts.name)) {
+                            return opts.name.some(name => accessibleName.includes(name));
                         } else if (typeof opts.name === 'string') {
                             return accessibleName.includes(opts.name);
                         } else if (opts.name instanceof RegExp) {
