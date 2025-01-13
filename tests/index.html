@@ -8,6 +8,8 @@
     <script>
         window.addEventListener('load', async () => {
 
+            page.WAIT_TIMEOUT = 0;
+
             await page.addInitScript(() => {
                 console.log('Init script executed.')
             });

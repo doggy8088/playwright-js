@@ -1,8 +1,5 @@
 (() => {
 
-    const WAIT_TIMEOUT = 5000;
-    const WAIT_INTERVAL = 100;
-
     class Locator {
         constructor(selector, options = {}, page, parentLocator = null) {
             this._selector = selector;
@@ -189,6 +186,10 @@
     }
 
     const page = {
+
+        WAIT_TIMEOUT: 5000,
+        WAIT_INTERVAL: 100,
+
         _queryElements: async function (selector, options, parentElement) {
             const start = Date.now();
             while (true) {
@@ -200,8 +201,8 @@
                 }
 
                 if (filteredElements.length) return filteredElements;
-                if (Date.now() - start >= WAIT_TIMEOUT) return [];
-                await new Promise((r) => setTimeout(r, WAIT_INTERVAL));
+                if (Date.now() - start >= page.WAIT_TIMEOUT) return [];
+                await new Promise((r) => setTimeout(r, page.WAIT_INTERVAL));
             }
         },
         /**
