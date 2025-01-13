@@ -399,8 +399,13 @@
 
                     const normalizedText = node.textContent.replace(/\s+/g, ' ').trim();
                     let isMatch = false;
+
                     if (opts.exact) {
-                        isMatch = normalizedText === opts.text;
+                        isMatch = Array.isArray(opts.text)
+                            ? opts.text.some(t => normalizedText === t)
+                            : normalizedText === opts.text;
+                    } else if (Array.isArray(opts.text)) {
+                        isMatch = opts.text.some(t => normalizedText.includes(t));
                     } else if (typeof opts.text === 'string') {
                         isMatch = normalizedText.includes(opts.text);
                     } else if (opts.text instanceof RegExp) {
