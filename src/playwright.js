@@ -380,7 +380,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByText(text, options = {}) {
+        getByText(text, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const walker = document.createTreeWalker(
                     parentElement,
@@ -418,7 +418,7 @@
                 }
                 return Array.from(matchingElements);
             };
-            return new Locator(selectorFn.bind(null, { text, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { text, ...options }, parentElement), {}, page);
         },
 
         /**
@@ -429,7 +429,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByLabel(text, options = {}) {
+        getByLabel(text, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const labels = parentElement.querySelectorAll('label');
                 let filteredElements = Array.from(labels)
@@ -455,7 +455,7 @@
                     .filter(element => element !== null);
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { text, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { text, ...options }, parentElement), {}, page);
         },
 
         /**
@@ -466,7 +466,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByPlaceholder(text, options = {}) {
+        getByPlaceholder(text, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const inputs = parentElement.querySelectorAll('input[placeholder], textarea[placeholder]');
                 let filteredElements = Array.from(inputs).filter(input => {
@@ -482,7 +482,7 @@
                 });
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { text, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { text, ...options }, parentElement), {}, page);
         },
 
         /**
@@ -493,7 +493,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByAltText(text, options = {}) {
+        getByAltText(text, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const elements = parentElement.querySelectorAll('img[alt], area[alt]');
                 let filteredElements = Array.from(elements).filter(element => {
@@ -509,7 +509,7 @@
                 });
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { text, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { text, ...options }, parentElement), {}, page);
         },
 
         /**
@@ -520,7 +520,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByTitle(text, options = {}) {
+        getByTitle(text, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const elements = parentElement.querySelectorAll('[title]');
                 let filteredElements = Array.from(elements).filter(element => {
@@ -536,7 +536,7 @@
                 });
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { text, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { text, ...options }, parentElement), {}, page);
         },
 
         /**
@@ -547,7 +547,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByTestId(testId, options = {}) {
+        getByTestId(testId, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const testIdAttributes = ['data-testid', 'data-test-id']; // 添加所有可能的屬性名稱
 
@@ -568,7 +568,7 @@
                 });
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { testId, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { testId, ...options }, parentElement), {}, page);
         },
 
         async addInitScript(script, ...args) {
