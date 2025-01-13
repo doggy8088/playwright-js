@@ -213,7 +213,7 @@
          * @param {HTMLElement} [parentElement=document] - 父元素，用於縮小查找範圍。
          * @returns {Locator} - 匹配元素的 Locator 物件。
          */
-        getByRole(role, options = {}) {
+        getByRole(role, options = {}, parentElement = document) {
             const selectorFn = async (opts, parentElement) => {
                 const implicitRoles = {
                     'a[href]': 'link',
@@ -369,7 +369,7 @@
                 }
                 return filteredElements;
             };
-            return new Locator(selectorFn.bind(null, { role, ...options }, document), {}, page);
+            return new Locator(selectorFn.bind(null, { role, ...options }, parentElement), {}, page);
         },
 
         /**
