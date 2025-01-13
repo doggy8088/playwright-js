@@ -7,63 +7,43 @@
     <script src="../src/playwright.js"></script>
     <script>
         window.addEventListener('load', async () => {
-            var elements = await page.getByRole('heading', { name: 'Sign up' });
-            if (elements.length === 0) {
-                console.error('Sign up not found');
-            } else {
-                console.log('Found: Sign up');
-            }
 
-            var elements = await page.getByRole('button', { name: 'Submit' });
-            if (elements.length === 0) {
-                console.error('Submit not found');
-            } else {
-                console.log('Found: Submit');
-                // elements[0].click();
-            }
+            await page.addInitScript(() => {
+                console.log('Init script executed.')
+            });
 
-            var elements = await page.getByText('subtitle', { exact: false });
-            if (elements.length === 0) {
-                console.error('subtitle not found');
-            } else {
-                console.log('subtitle Found: ', elements);
-            }
+            // add jquery from cdn
+            await page.addInitScript({ path: 'https://code.jquery.com/jquery-3.6.0.min.js' });
 
-            var elements = await page.getByLabel('Subscribe', { exact: false });
-            if (elements.length === 0) {
-                console.error('Subscribe not found');
-            } else {
-                console.log('Subscribe Found: ', elements);
-            }
+            console.log('isSpinUpVisible: ', await page.getByRole('heading', { name: 'Sign up' }).isVisible());
 
-            var elements = await page.getByPlaceholder('Enter your name', { exact: true });
-            if (elements.length === 0) {
-                console.error('Input text not found');
-            } else {
-                console.log('Input text Found: ', elements);
-            }
+            console.log('subtitle: ', await page.getByText('subtitle', { exact: false }).isVisible());
 
-            var elements = await page.getByAltText('Duotify Logo', { exact: true });
-            if (elements.length === 0) {
-                console.error('Duotify Logo not found');
-            } else {
-                console.log('Duotify Logo Found: ', elements);
-            }
+            await page.getByLabel('Subscribe', { exact: false }).check();
+            // await page.getByLabel('Subscribe', { exact: false }).uncheck();
 
-            var elements = await page.getByTitle('多奇', { exact: true });
-            if (elements.length === 0) {
-                console.error('多奇 not found');
-            } else {
-                console.log('多奇 Found: ', elements);
-            }
+            // 這兩種都可以
+            await page.getByLabel('Pick a City').selectOption('New Taipei');
+            await page.getByLabel('Pick a City').selectOption('new-taipei');
 
-            var elements = await page.getByTestId('company-name', { exact: true });
-            if (elements.length === 0) {
-                console.error('company-name not found');
-            } else {
-                console.log('company-name Found: ', elements);
-            }
+            await page.getByPlaceholder('Enter your name', { exact: true }).fill('John Doe');
+            await page.getByPlaceholder('Enter your name', { exact: true }).pressSequentially('Will Huang');
 
+            await page.getByAltText('Duotify Logo', { exact: true }).evaluate(e => {
+                console.log('Duotify Logo URL', e.src);
+            });
+
+            await page.getByTitle('多奇', { exact: true }).evaluate(e => {
+                console.log('多奇', e.outerHTML);
+            });
+
+            await page.getByTestId('company-name', { exact: true }).evaluate(e => {
+                console.log('TestId=company-name', e.outerHTML);
+            });
+
+            await page.getByRole('button', { name: 'Submit' }).click();
+
+            await page.getByPlaceholder('Enter your name', { exact: true }).focus();
         });
     </script>
 </head>
@@ -73,10 +53,17 @@
     <br>
     <h3>Sign up</h3>
     <div>This is a subtitle.</div>
+    <div>
+        <label for="city">Pick a City</label>
+        <select id="city" name="city">
+            <option value="taipei">Taipei</option>
+            <option value="new-taipei">New Taipei</option>
+        </select>
+    </div>
     <input type="text" placeholder="Enter your name" />
     <input id="subscribe" type="checkbox" />
     <label for="subscribe">Subscribe</label>
     <br/>
-    <button onclick="alert('Submitted')">Submit</button>
+    <button onclick="console.log('Submitted')">Submit</button>
 </body>
 </html>
