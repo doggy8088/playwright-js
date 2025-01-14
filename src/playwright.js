@@ -333,6 +333,10 @@
                 };
 
                 let filteredElements = Array.from(parentElement.querySelectorAll('*')).filter(element => {
+                    if (element.getAttribute('aria-disabled') === 'true') {
+                        return false;
+                    }
+
                     const explicitRole = element.getAttribute('role');
                     if (explicitRole) {
                         return explicitRole === opts.role;
