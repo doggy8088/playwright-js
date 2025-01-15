@@ -16,23 +16,27 @@
 
 ## 載入 JS
 
-```html
-<script src="https://doggy8088.github.io/playwright-js/src/playwright.js"></script>
-```
+1. 直接從網頁中加入
+    
+    ```html
+    <script src="https://doggy8088.github.io/playwright-js/src/playwright.js"></script>
+    ```
 
-```js
-var pwjs = document.createElement('script');
-pwjs.src = 'https://doggy8088.github.io/playwright-js/src/playwright.js';
-pwjs.async = true;
-pwjs.onload = () => {
-  console.log('Script loaded successfully!');
-};
-pwjs.onerror = () => {
-    console.error(`Failed to load script: ${pwjs.src}`);
-};
-document.head.appendChild(pwjs);
-```
+2. 從網頁中動態加入
 
+    ```js
+    var pwjs = document.createElement('script');
+    pwjs.src = 'https://doggy8088.github.io/playwright-js/src/playwright.js';
+    pwjs.async = true;
+    pwjs.onload = () => {
+      console.log('Script loaded successfully!');
+    };
+    pwjs.onerror = () => {
+        console.error(`Failed to load script: ${pwjs.src}`);
+    };
+    document.head.appendChild(pwjs);
+    ```
+    
 使用範例請見 [tests/index.html](tests/index.html)
 
 ## 相關連結
