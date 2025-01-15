@@ -12,7 +12,7 @@
 - [page.getByTitle()](https://playwright.dev/docs/locators#locate-by-title) 來根據標題屬性定位元素。
 - [page.getByTestId()](https://playwright.dev/docs/locators#locate-by-test-id) 來根據 `data-testid` 屬性定位元素（其他屬性可以配置）。
 
-- [page.addInitScript](https://playwright.dev/docs/api/class-page#page-add-init-script) 新增一個 JS 或執行一段 JS 程式碼。
+- [page.addInitScript()](https://playwright.dev/docs/api/class-page#page-add-init-script) 新增一個 JS 或執行一段 JS 程式碼。
 
 ## 載入 JS
 
